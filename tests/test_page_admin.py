@@ -1,12 +1,16 @@
-import time
-from selenium.webdriver.common.by import By
+from configuration import admin_name, admin_password
+from page_objects.AdminPage import AdminPage
 
 
-def test_search_elm_admin(base_url, browser):
-    browser.get(base_url + '/admin')
-    time.sleep(1)
-    assert browser.find_element(By.CSS_SELECTOR, '[class="panel-title"]').text == 'Please enter your login details.'
-    assert browser.find_element(By.CSS_SELECTOR, '[name="username"]')
-    assert browser.find_element(By.CSS_SELECTOR, '[name="password"]')
-    assert browser.find_element(By.CSS_SELECTOR, '[class="help-block"]')
-    assert browser.find_element(By.CSS_SELECTOR, '[class="fa fa-key"]')
+def test_login(browser, base_url):
+    AdminPage(browser).login(admin_name, admin_password, base_url)
+
+
+def test_add_goods(browser, base_url):
+    AdminPage(browser).login(admin_name, admin_password, base_url)
+    AdminPage(browser).add_product()
+
+
+def test_del_goods(browser, base_url):
+    AdminPage(browser).login(admin_name, admin_password, base_url)
+    AdminPage(browser).del_product()
