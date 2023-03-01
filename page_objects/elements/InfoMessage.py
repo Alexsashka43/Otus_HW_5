@@ -1,7 +1,6 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from page_objects.elements.Buttons import Buttons
 
 
 class InfoMessage:
@@ -16,3 +15,7 @@ class InfoMessage:
     def info_success(self):
         WebDriverWait(self.driver, 5).until(
             EC.visibility_of_element_located((By.CSS_SELECTOR, '[class ="alert alert-success alert-dismissible"]')))
+
+
+    def switch_alert(self):
+        self.driver.switch_to.alert.accept()

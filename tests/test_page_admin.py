@@ -1,16 +1,28 @@
-from configuration import admin_name, admin_password
+import allure
+from configuration import Admin
 from page_objects.AdminPage import AdminPage
+from page_objects.elements.Buttons import Buttons
+from page_objects.elements.InfoMessage import InfoMessage
 
 
-def test_login(browser, base_url):
-    AdminPage(browser).login(admin_name, admin_password, base_url)
+@allure.step('Admin page: Login')
+def test_login(driver, base_url):
+    AdminPage(driver).login(Admin.LOGIN, Admin.PASSWORD, base_url)
 
 
-def test_add_goods(browser, base_url):
-    AdminPage(browser).login(admin_name, admin_password, base_url)
-    AdminPage(browser).add_product()
+@allure.step('Admin page: Add goods')
+def test_add_goods(driver, base_url):
+    AdminPage(driver).login(Admin.LOGIN, Admin.PASSWORD, base_url)
+    AdminPage(driver).navigation_products()
+    Buttons(driver).click_plus()
+    AdminPage(driver).add_product()
+    Buttons(driver).click_save()
 
 
-def test_del_goods(browser, base_url):
-    AdminPage(browser).login(admin_name, admin_password, base_url)
-    AdminPage(browser).del_product()
+@allure.step('Admin page: Delete goods')
+def test_del_goods(driver, base_url):
+    AdminPage(driver).login(Admin.LOGIN, Admin.PASSWORD, base_url)
+    AdminPage(driver).navigation_products()
+    AdminPage(driver).del_product()
+    Buttons(driver).click_trash()
+    InfoMessage(driver).switch_alert()

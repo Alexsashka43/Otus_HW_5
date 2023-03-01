@@ -1,0 +1,15 @@
+<environment>
+                <parameter>
+                    <key>Browser</key>
+                    <value><selenium.webdriver.chrome.webdriver.WebDriver (session="eb33db98bbef33db706e980e12723d70")></value>
+                </parameter>
+                <parameter>
+                    <key>Browser.Version</key>
+                    <value>None</value>
+                </parameter>
+                <parameter>
+                    <key>Executor</key>
+                    <value>192.168.1.7</value>
+                </parameter>
+            </environment>
+            

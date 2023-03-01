@@ -1,0 +1,3 @@
+[32mINFO    [0m AdminPage:AdminPage.py:12 Login Admin
+[32mINFO    [0m AdminPage:AdminPage.py:20 Catalog: Products
+[32mINFO    [0m AdminPage:AdminPage.py:27 Admin: Add goods

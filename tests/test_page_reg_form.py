@@ -1,15 +1,19 @@
-from configuration import user_name, last_name, email, telephone, user_password
+# import allure
+from configuration import User
 from page_objects.UserPage import UserPage
 from page_objects.elements.InfoMessage import InfoMessage
 
 
-def test_warning(browser, base_url):
-    InfoMessage(browser).info_danger()
+# @allure.step('Registration form: ')
+def test_warning(driver):
+    InfoMessage(driver).info_danger()
 
 
-def test_add_user(browser, base_url):
-    UserPage(browser).registration(user_name, last_name, email, telephone, user_password, base_url)
+# @allure.step(f'Registration form: Add user {User.LOGIN}')
+def test_add_user(driver, base_url):
+    UserPage(driver).registration(User.FIRST_NAME, User.LAST_NAME, User.EMAIL, User.PHONE, User.PASSWORD, base_url)
+    UserPage(driver).login(User.EMAIL, User.PASSWORD, base_url)
 
-
-def test_login(browser, base_url):
-    UserPage(browser).login(email, user_password, base_url)
+# @allure.step('Registration form: Login user test@mail.ru')
+def test_login(driver, base_url):
+    UserPage(driver).login(User.LOGIN, User.PASSWORD, base_url)
