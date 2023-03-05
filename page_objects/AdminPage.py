@@ -15,6 +15,7 @@ class AdminPage(BasePage):
         self.driver.find_element(By.CSS_SELECTOR, '[name="password"]').send_keys(admin_password)
         self.driver.find_element(By.CSS_SELECTOR, '[class="fa fa-key"]').click()
 
+
     @allure.step
     def navigation_products(self):
         self.logger.info('Catalog: Products')

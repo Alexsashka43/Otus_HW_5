@@ -27,20 +27,20 @@ def test_add_to_wish_list(driver, base_url):
 
 
 @allure.step('Home page: Delete goods from wishlist')
-def test_del_from_with_list(driver, base_url):
-    UserPage(driver).login(User.LOGIN, User.PASSWORD, base_url)
+def test_del_from_wish_list(driver, base_url):
+    UserPage(driver).login(User.EMAIL, User.PASSWORD, base_url)
     HomePage(driver, base_url).del_from_wish_list()
 
 
 @allure.step('Home page: Add goods to cart')
 def test_add_to_cart(driver, base_url):
-    UserPage(driver).login(User.LOGIN, User.PASSWORD, base_url)
+    UserPage(driver).login(User.EMAIL, User.PASSWORD, base_url)
     HomePage(driver, base_url).add_to_cart()
 
 
 @allure.step('Home page: Delete goods from cart')
 def test_del_from_cart(driver, base_url):
-    UserPage(driver).login(User.LOGIN, User.PASSWORD, base_url)
+    UserPage(driver).login(User.EMAIL, User.PASSWORD, base_url)
     HomePage(driver, base_url).del_from_cart()
 
 

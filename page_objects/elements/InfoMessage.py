@@ -11,6 +11,7 @@ class InfoMessage:
     def info_danger(self):
         WebDriverWait(self.driver, 5).until(
             EC.visibility_of_element_located((By.CSS_SELECTOR, '[class="alert alert-danger alert-dismissible"]')))
+        # self.driver.find_element(By.CSS_SELECTOR, '[class="alert alert-danger alert-dismissible"]')
 
     def info_success(self):
         WebDriverWait(self.driver, 5).until(

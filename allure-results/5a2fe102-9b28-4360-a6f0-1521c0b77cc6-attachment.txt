@@ -1,2 +1,0 @@
-[32mINFO    [0m UserPage:UserPage.py:12 Registration: test123@mail.com
-[32mINFO    [0m UserPage:UserPage.py:27 Login: test123@mail.com

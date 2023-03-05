@@ -4,9 +4,12 @@ import allure
 import pytest
 import os
 import logging
+
+from allure_commons.types import AttachmentType
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 
+drivers = os.path.expanduser('drivers')
 
 
 @pytest.fixture
@@ -42,40 +45,45 @@ def driver(request):
     options.add_experimental_option('w3c', True)
     executor_url = f"http://{executor}:4444/wd/hub"
 
-    if executor == 'local':
-        if driver == "chrome":
-            service = Service(executable_path=os.path.join(drivers, "chromedriver.exe"))
-            browser = webdriver.Chrome(service=service, options=options)
-        elif driver == "yandex":
-            browser = webdriver.Chrome(executable_path=os.path.join(drivers, "yandexdriver.exe"), options=options)
-        elif driver == "firefox":
-            browser = webdriver.Firefox(executable_path=os.path.join(drivers, "geckodriver.exe"), options=options)
-        elif driver == "edge":
-            browser = webdriver.Edge(executable_path=os.path.join(drivers, "msedgedriver.exe"), options=options)
-        elif driver == "safari":
-            browser = webdriver.Safari(executable_path=os.path.join(drivers, "safaridriver.exe"), options=options)
-        else:
-            raise Exception("Driver not supported")
-
+    # if executor == 'local':
+    if driver == "chrome":
+        service = Service(executable_path=os.path.join(drivers, "chromedriver.exe"))
+        browser = webdriver.Chrome(service=service, options=options)
+    elif driver == "yandex":
+        browser = webdriver.Chrome(executable_path=os.path.join(drivers, "yandexdriver.exe"), options=options)
+    elif driver == "firefox":
+        browser = webdriver.Firefox(executable_path=os.path.join(drivers, "geckodriver.exe"), options=options)
+    elif driver == "edge":
+        browser = webdriver.Edge(executable_path=os.path.join(drivers, "msedgedriver.exe"), options=options)
+    elif driver == "safari":
+        browser = webdriver.Safari(executable_path=os.path.join(drivers, "safaridriver.exe"), options=options)
     else:
+        raise Exception("Driver not supported")
 
-        capabilities = {
-            'browserName': driver,
-            'browserVersion': version,
-            'selenoid:options': {
-                'enableVNC': vnc,
-                'enableVideo': video,
-                'enableLog': logs,
-            },
-            'name': 'test',
-        }
-
-        browser = webdriver.Remote(
-            desired_capabilities=capabilities,
-            command_executor=executor_url,
-            options=options
-        )
-
+    # else:
+    #
+    #     capabilities = {
+    #         'browserName': driver,
+    #         'browserVersion': version,
+    #         'selenoid:options': {
+    #             'enableVNC': vnc,
+    #             'enableVideo': video,
+    #             'enableLog': logs,
+    #         },
+    #         'name': 'test',
+    #     }
+    #
+    #     browser = webdriver.Remote(
+    #         desired_capabilities=capabilities,
+    #         command_executor=executor_url,
+    #         options=options
+    #     )
+    # if request.node.name != 'passed':
+    #     allure.attach(
+    #         'screenshot',
+    #         driver.get_screenshot_as_png(),
+    #         type=AttachmentType.PNG
+    #     )
 
     allure.attach(
         name=browser.session_id,
@@ -83,25 +91,29 @@ def driver(request):
         attachment_type=allure.attachment_type.JSON,
     )
 
+
     def finalizer():
         browser.quit()
 
+        # Add environment info to allure-report
         with open("allure-results/environment.xml", "w+") as file:
             file.write(f"""<environment>
-                <parameter>
-                    <key>Browser</key>
-                    <value>{browser}</value>
-                </parameter>
-                <parameter>
-                    <key>Browser.Version</key>
-                    <value>{version}</value>
-                </parameter>
-                <parameter>
-                    <key>Executor</key>
-                    <value>{executor_url}</value>
-                </parameter>
-            </environment>
-            """)
+                        <parameter>
+                            <key>Browser</key>
+                            <value>{browser}</value>
+                        </parameter>
+                        <parameter>
+                            <key>Browser.Version</key>
+                            <value>{version}</value>
+                        </parameter>
+                        <parameter>
+                            <key>Executor</key>
+                            <value>{executor_url}</value>
+                        </parameter>
+                    </environment>
+                    """)
+
+
 
     browser.test_name = request.node.name
     browser.log_level = logging.DEBUG

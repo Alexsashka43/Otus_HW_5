@@ -1,1 +1,0 @@
-[32mINFO    [0m HomePage:HomePage.py:43 Add to compare
