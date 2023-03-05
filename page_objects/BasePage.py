@@ -4,6 +4,7 @@ import os
 from datetime import datetime
 from selenium.webdriver.remote.errorhandler import WebDriverException
 
+
 class BasePage:
 
     def __init__(self, driver):
@@ -13,8 +14,8 @@ class BasePage:
             try:
                 os.mkdir("screenshots")
             except:
-                self.driver.get_screenshot_as_file(f"screenshots/{datetime.now().strftime('%m-%d-%Y_%H-%M')}_{self.driver.test_name}.png")
-
+                self.driver.get_screenshot_as_file(
+                    f"screenshots/{datetime.now().strftime('%m-%d-%Y_%H-%M')}_{self.driver.test_name}.png")
 
         self.logger = logging.getLogger(type(self).__name__)
         os.makedirs('logs', exist_ok=True)

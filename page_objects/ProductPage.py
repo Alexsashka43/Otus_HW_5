@@ -6,9 +6,6 @@ from page_objects.elements.InfoMessage import InfoMessage
 
 
 class ProductPage(HomePage):
-    # def __init__(self, driver, base_url):
-    #     super().__init__(driver)
-    #     self.url = self.driver.get(base_url + f'/{product_name}')
 
     @allure.step
     def add_to_cart(self):

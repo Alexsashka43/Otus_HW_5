@@ -28,6 +28,3 @@ class UserPage(BasePage):
         self.driver.find_element(By.CSS_SELECTOR, '[id="input-email"]').send_keys(email)
         self.driver.find_element(By.CSS_SELECTOR, '[id="input-password"]').send_keys(user_password)
         Buttons(self.driver).click_login()
-
-
-        # assert self.driver.find_element(By.LINK_TEXT, 'Success')
